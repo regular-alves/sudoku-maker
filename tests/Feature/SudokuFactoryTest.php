@@ -7,7 +7,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
-class SudokuMakerTest extends TestCase
+class SudokuFactoryTest extends TestCase
 {
     /**
      * A basic feature test example.
