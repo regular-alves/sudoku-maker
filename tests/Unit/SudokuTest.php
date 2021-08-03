@@ -18,7 +18,7 @@ class SudokuTest extends TestCase
 
     public function test_getSection()
     {
-        $position_set = $this->sudoku->getSection(1, 'A', 3, 'C');
+        $position_set = $this->sudoku->getSection(0, 'A', 2, 'C');
         $this->assertIsArray($position_set);
         $this->assertCount(9, $position_set);
     }
@@ -32,7 +32,7 @@ class SudokuTest extends TestCase
 
     public function test_getRow()
     {
-        $position_set = $this->sudoku->getRow(1);
+        $position_set = $this->sudoku->getRow(0);
         $this->assertIsArray($position_set);
         $this->assertCount(9, $position_set);
     }
