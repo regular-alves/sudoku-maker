@@ -24,27 +24,15 @@ class Sudoku extends Model
     ): array {
         $yAxisCol = strtolower($yAxisCol);
         $xAxisCol = strtolower($xAxisCol);
-
-        $positions = array_map(
-            function ($row) use ($yAxisCol, $xAxisCol) {
-                $return_set = [];
-
-                for ($i = $yAxisCol; $i <= $xAxisCol; $i++) {
-                    $return_set[] = $row[$i];
-                }
-
-                return $return_set;
-            },
-            array_slice($this->positions, $yAxisRow, $xAxisRow, true)
-        );
-
         $result_set = [];
 
-        array_walk_recursive(
-            $positions,
-            function ($col) use (&$result_set) {
-                $result_set[] = $col;
-            }
+        array_map(
+            function ($row) use ($yAxisCol, $xAxisCol, &$result_set) {
+                for ($i = $yAxisCol; $i <= $xAxisCol; $i++) {
+                    $result_set[] = $row[$i];
+                }
+            },
+            array_slice($this->positions, $yAxisRow, ($xAxisRow - $yAxisRow) + 1, true)
         );
 
         return $result_set;
