@@ -20,7 +20,8 @@ class Sudoku extends Model
         int $yAxisRow,
         string $yAxisCol,
         int $xAxisRow,
-        string $xAxisCol
+        string $xAxisCol,
+        bool $without_null = false
     ): array {
         $yAxisCol = strtolower($yAxisCol);
         $xAxisCol = strtolower($xAxisCol);
@@ -35,10 +36,14 @@ class Sudoku extends Model
             array_slice($this->positions, $yAxisRow, ($xAxisRow - $yAxisRow) + 1, true)
         );
 
+        if ($without_null) {
+            $result_set = $this->clean($result_set);
+        }
+
         return $result_set;
     }
 
-    public function getColumn(string $col): array
+    public function getColumn(string $col, bool $without_null = false): array
     {
         $col = strtolower($col);
         $result_set = [];
@@ -47,11 +52,29 @@ class Sudoku extends Model
             $result_set[] = $row[$col];
         }
 
+        if ($without_null) {
+            $result_set = $this->clean($result_set);
+        }
+
         return $result_set;
     }
 
-    public function getRow(int $row): array
+    public function getRow(int $row, bool $without_null = false): array
     {
-        return $this->positions[$row];
+        $result_set = $this->positions[$row];
+
+        if ($without_null) {
+            $result_set = $this->clean($result_set);
+        }
+
+        return $result_set;
+    }
+
+    private function clean(array $fields)
+    {
+        return array_filter(
+            $fields,
+            fn ($val) => boolval($val)
+        );
     }
 }
