@@ -9,6 +9,15 @@ use Tests\TestCase;
 
 class SudokuFactoryTest extends TestCase
 {
+    private $sudoku;
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        $this->sudoku = Sudoku::factory()->make();
+    }
+
     /**
      * A basic feature test example.
      *
@@ -16,18 +25,14 @@ class SudokuFactoryTest extends TestCase
      */
     public function test_MustReturnASudokuInstance()
     {
-        $sudoku = Sudoku::factory()->make();
-
-        $this->assertInstanceOf(Sudoku::class, $sudoku);
+        $this->assertInstanceOf(Sudoku::class, $this->sudoku);
     }
 
     public function test_GetPositionsMustReturnAnArrayOfArrays()
     {
-        $sudoku = Sudoku::factory()->make();
+        $this->assertCount(9, $this->sudoku->positions);
 
-        $this->assertCount(9, $sudoku->positions);
-
-        foreach ($sudoku->positions as $row) {
+        foreach ($this->sudoku->positions as $row) {
             $this->assertCount(9, $row);
         }
     }
