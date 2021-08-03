@@ -2,7 +2,7 @@
 
 namespace Tests\Unit;
 
-use App\Http\Controllers\SudokuMaker;
+use App\Models\Sudoku;
 use PHPUnit\Framework\TestCase;
 
 class SudokuTest extends TestCase
@@ -13,7 +13,7 @@ class SudokuTest extends TestCase
     {
         parent::setUp();
 
-        $this->sudoku = SudokuMaker::make();
+        $this->sudoku = Sudoku::factory()->make();
     }
 
     public function test_getSection()

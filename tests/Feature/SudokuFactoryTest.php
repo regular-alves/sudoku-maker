@@ -2,7 +2,6 @@
 
 namespace Tests\Feature;
 
-use App\Http\Controllers\SudokuMaker;
 use App\Models\Sudoku;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
@@ -15,21 +14,20 @@ class SudokuMakerTest extends TestCase
      *
      * @return void
      */
-    public function testMustReturnASudokuInstance()
+    public function test_MustReturnASudokuInstance()
     {
-        $sudoku = SudokuMaker::make();
+        $sudoku = Sudoku::factory()->make();
 
         $this->assertInstanceOf(Sudoku::class, $sudoku);
     }
 
-    public function testGetPositionsMustReturnAnArrayOfArrays()
+    public function test_GetPositionsMustReturnAnArrayOfArrays()
     {
-        $maker = new SudokuMaker();
-        $positions = $maker->getPositions();
+        $sudoku = Sudoku::factory()->make();
 
-        $this->assertCount(9, $positions);
+        $this->assertCount(9, $sudoku->positions);
 
-        foreach ($positions as $row) {
+        foreach ($sudoku->positions as $row) {
             $this->assertCount(9, $row);
         }
     }
