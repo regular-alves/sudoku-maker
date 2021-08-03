@@ -36,4 +36,13 @@ class SudokuFactoryTest extends TestCase
             $this->assertCount(9, $row);
         }
     }
+
+    public function test_SudokuShouldBefilledInAllPositions()
+    {
+        $positions = array_filter(
+            $this->sudoku->getSection(0, 'A', 8, 'I'),
+            fn ($field) => boolval($field)
+        );
+        $this->assertCount(9 * 9, $positions);
+    }
 }
