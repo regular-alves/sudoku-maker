@@ -7,7 +7,7 @@ use PHPUnit\Framework\TestCase;
 
 class SudokuTest extends TestCase
 {
-    protected $sudoku;
+    private $sudoku;
 
     protected function setUp(): void
     {
