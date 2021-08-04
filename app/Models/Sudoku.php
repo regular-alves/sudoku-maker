@@ -16,6 +16,11 @@ class Sudoku extends Model
         'positions' => 'json'
     ];
 
+    public function setPositions($positions): void
+    {
+        $this['positions'] = $positions;
+    }
+
     public function getSection(
         int $yAxisRow,
         string $yAxisCol,
