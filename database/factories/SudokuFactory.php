@@ -33,8 +33,6 @@ class SudokuFactory extends Factory
 
     public function polulate(Sudoku $sudoku)
     {
-        $positions = $sudoku->positions;
-
         $section_length = 3;
         $board_length = pow($section_length, 2);
 
@@ -54,7 +52,8 @@ class SudokuFactory extends Factory
                 $sec_col_end,
                 $setted_num,
                 $remain,
-                $key
+                $key,
+                $positions
             );
 
             $row_n = floor($n / $board_length);
@@ -81,7 +80,9 @@ class SudokuFactory extends Factory
             $remain = array_diff($possible_num, $setted_num);
             $key = array_rand($remain);
 
+            $positions = $sudoku->positions;
             $positions[$row_n][$columns[$col_n]] = $remain[$key];
+            $sudoku->setPositions($positions);
         }
 
         $sudoku->setPositions($positions);
