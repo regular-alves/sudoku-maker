@@ -60,11 +60,11 @@ class SudokuFactory extends Factory
             $row_n = floor($n / $board_length);
             $col_n = $n % $board_length;
 
-            $sec_row_start = floor($row_n / $section_length);
-            $sec_row_end = (($sec_row_start + 1) * $section_length) - 1;
+            $sec_row_start = floor($row_n / $section_length) * $section_length;
+            $sec_row_end = ($sec_row_start + $section_length) - 1;
 
-            $sec_col_start = floor($col_n / $section_length);
-            $sec_col_end = (($sec_col_start + 1) * $section_length) - 1;
+            $sec_col_start = floor($col_n / $section_length) * $section_length;
+            $sec_col_end = ($sec_col_start + $section_length) - 1;
 
             $setted_num = array_merge(
                 $sudoku->getRow($row_n, true),
