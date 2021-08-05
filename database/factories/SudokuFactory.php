@@ -85,8 +85,6 @@ class SudokuFactory extends Factory
             $sudoku->setPositions($positions);
         }
 
-        $sudoku->setPositions($positions);
-
         return $sudoku;
     }
 
