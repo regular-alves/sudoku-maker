@@ -38,15 +38,9 @@ class SudokuFactory extends Factory
         $section_length = 3;
         $board_length = pow($section_length, 2);
 
+        $columns = $this->getAlpha($board_length);
         $fields = range(0, pow($board_length, 2) - 1);
         $possible_num = range(1, $board_length);
-
-        $letter = 'a';
-        $columns = [];
-
-        for ($i = 0; $i < $board_length; $i++) {
-            $columns[] = $letter++;
-        }
 
         shuffle($fields);
 
@@ -108,5 +102,17 @@ class SudokuFactory extends Factory
         }
 
         return $rows;
+    }
+
+    public function getAlpha(int $length): array
+    {
+        $letter = 'a';
+        $columns = [];
+
+        for ($i = 0; $i < $length; $i++) {
+            $columns[] = $letter++;
+        }
+
+        return $columns;
     }
 }
