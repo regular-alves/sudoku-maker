@@ -43,21 +43,42 @@ class SudokuTest extends TestCase
     public function test_getSection()
     {
         $position_set = $this->sudoku->getSection(0, 'A', 2, 'C');
+
+        sort($position_set);
+
         $this->assertIsArray($position_set);
         $this->assertCount(9, $position_set);
+        $this->assertEquals(
+            range(1, 9),
+            $position_set
+        );
     }
 
     public function test_getColumn()
     {
         $position_set = $this->sudoku->getColumn('A');
+
+        sort($position_set);
+
         $this->assertIsArray($position_set);
         $this->assertCount(9, $position_set);
+        $this->assertEquals(
+            range(1, 9),
+            $position_set
+        );
     }
 
     public function test_getRow()
     {
         $position_set = $this->sudoku->getRow(0);
+
+        sort($position_set);
+
         $this->assertIsArray($position_set);
         $this->assertCount(9, $position_set);
+        $this->assertEquals(
+            range(1, 9),
+            $position_set
+        );
     }
 }
