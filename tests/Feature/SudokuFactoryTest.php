@@ -22,18 +22,4 @@ class SudokuFactoryTest extends TestCase
     {
         $this->assertInstanceOf(Sudoku::class, $this->sudoku);
     }
-
-    public function test_GetPositionsMustReturnAnArrayOfArrays()
-    {
-        $this->assertCount(9, $this->sudoku->positions);
-
-        foreach ($this->sudoku->positions as $row) {
-            $this->assertCount(9, $row);
-        }
-    }
-
-    public function test_SudokuShouldBefilledInAllPositions()
-    {
-        $this->assertCount(9 * 9, $this->sudoku->getSection(0, 'A', 8, 'I', true));
-    }
 }

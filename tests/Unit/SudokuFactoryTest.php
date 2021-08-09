@@ -20,4 +20,18 @@ class SudokuFactoryTest extends TestCase
         $sequence = $this->factory->getAlpha(3);
         $this->assertEquals(['a', 'b', 'c'], $sequence);
     }
+
+    public function test_GetPositionsMustReturnAnArrayOfArrays()
+    {
+        $this->assertCount(9, $this->sudoku->positions);
+
+        foreach ($this->sudoku->positions as $row) {
+            $this->assertCount(9, $row);
+        }
+    }
+
+    public function test_SudokuShouldBefilledInAllPositions()
+    {
+        $this->assertCount(9 * 9, $this->sudoku->getSection(0, 'A', 8, 'I', true));
+    }
 }
