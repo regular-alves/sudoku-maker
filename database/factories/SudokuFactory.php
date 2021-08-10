@@ -28,7 +28,7 @@ class SudokuFactory extends Factory
 
     public function configure()
     {
-        return $this->afterMaking(fn (Sudoku $sudoku) => $this->polulate($sudoku));
+        return $this->afterMaking(fn (Sudoku $sudoku) => $this->polulateBySection($sudoku));
     }
 
     public function polulateLinearly(Sudoku $sudoku)
@@ -118,5 +118,13 @@ class SudokuFactory extends Factory
         }
 
         return $columns;
+    }
+
+    public function polulateBySection(Sudoku $sudoku)
+    {
+        $section_length = 3;
+        $board_length = pow($section_length, 9);
+
+        $columns = $this->getAlpha($section_length);
     }
 }
