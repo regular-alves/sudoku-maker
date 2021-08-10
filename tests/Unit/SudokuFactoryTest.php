@@ -2,17 +2,20 @@
 
 namespace Tests\Unit;
 
+use App\Models\Sudoku;
 use Database\Factories\SudokuFactory;
 use PHPUnit\Framework\TestCase;
 
 class SudokuFactoryTest extends TestCase
 {
     protected $factory;
+    protected $sudoku;
 
     protected function setUp(): void
     {
         parent::setUp();
         $this->factory = new SudokuFactory();
+        $this->sudoku = Sudoku::factory()->make();
     }
 
     public function test_GetAlphaShouldReturnSequenceFromAToB()
