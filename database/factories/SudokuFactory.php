@@ -31,7 +31,7 @@ class SudokuFactory extends Factory
         return $this->afterMaking(fn (Sudoku $sudoku) => $this->polulate($sudoku));
     }
 
-    public function polulate(Sudoku $sudoku)
+    public function polulateLinearly(Sudoku $sudoku)
     {
         $section_length = 3;
         $board_length = pow($section_length, 2);
@@ -78,6 +78,11 @@ class SudokuFactory extends Factory
             );
 
             $remain = array_diff($possible_num, $setted_num);
+
+            if (!$remain) {
+                continue;
+            }
+
             $key = array_rand($remain);
 
             $positions = $sudoku->positions;
