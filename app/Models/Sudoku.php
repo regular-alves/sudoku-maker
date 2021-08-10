@@ -82,4 +82,62 @@ class Sudoku extends Model
             fn ($val) => boolval($val)
         );
     }
+
+    public function isValid()
+    {
+        $board_length = count($this->positions);
+        $section_length = sqrt($board_length);
+
+        $columns = array_keys($this->positions[0]);
+        $sequence = range(1, $board_length);
+
+
+        for ($i = 0; $i < $board_length; $i++) {
+            $sec_row_start = floor($i / $section_length) * $section_length;
+            $sec_row_end = $sec_row_start + $section_length - 1;
+
+            $sec_col_start = ($i % $section_length) * $section_length;
+            $sec_col_end = $sec_col_start + $section_length - 1;
+
+            if (
+                !isset($columns[$sec_col_start]) ||
+                !isset($columns[$sec_col_end]) ||
+                !isset($columns[$i])
+            ) {
+                return false;
+            }
+
+            $section = $this->getSection(
+                $sec_row_start,
+                $columns[$sec_col_start],
+                $sec_row_end,
+                $columns[$sec_col_end],
+                true
+            );
+
+            $row = $this->getRow($i, true);
+            $col = $this->getColumn($columns[$i], true);
+
+            array_unique($row);
+            array_unique($col);
+            array_unique($section);
+
+            sort($row);
+            sort($col);
+            sort($section);
+
+            if (
+                count($section) !== $board_length ||
+                count($row) !== $board_length ||
+                count($col) !== $board_length ||
+                $section !== $sequence ||
+                $row !== $sequence ||
+                $col !== $sequence
+            ) {
+                return false;
+            }
+        }
+
+        return true;
+    }
 }
