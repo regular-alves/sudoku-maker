@@ -120,11 +120,37 @@ class SudokuFactory extends Factory
         return $columns;
     }
 
-    public function polulateBySection(Sudoku $sudoku)
+    public function polulateBySection(Sudoku $sudoku): Sudoku
     {
         $section_length = 3;
-        $board_length = pow($section_length, 9);
+        $board_length = pow($section_length, 2);
+        $possibles = range(1, $board_length);
+        $columns = $this->getAlpha($board_length);
 
-        $columns = $this->getAlpha($section_length);
+        $counter = 0;
+
+        while (!$sudoku->isValid() && $counter < 10) {
+            $positions = $sudoku->positions;
+
+            for ($i = 0; $i < $board_length; $i++) {
+                shuffle($possibles);
+
+                $row_n = floor($i / $section_length) * $section_length;
+                $col_n = ($i % $section_length) * $section_length;
+
+                foreach ($possibles as $k => $field) {
+                    $row = floor($k / $section_length);
+                    $col = $k % $section_length;
+                    $col = $columns[$col_n + $col];
+
+                    $positions[$row_n + $row][$col] = $field;
+                }
+            }
+
+            $sudoku->setPositions($positions);
+            $counter++;
+        };
+
+        return $sudoku;
     }
 }
