@@ -46,10 +46,6 @@ class SudokuFactory extends Factory
             unset(
                 $row_n,
                 $col_n,
-                $sec_row_start,
-                $sec_row_end,
-                $sec_col_start,
-                $sec_col_end,
                 $setted_num,
                 $remain,
                 $key,
@@ -59,22 +55,10 @@ class SudokuFactory extends Factory
             $row_n = floor($n / $board_length);
             $col_n = $n % $board_length;
 
-            $sec_row_start = floor($row_n / $section_length) * $section_length;
-            $sec_row_end = ($sec_row_start + $section_length) - 1;
-
-            $sec_col_start = floor($col_n / $section_length) * $section_length;
-            $sec_col_end = ($sec_col_start + $section_length) - 1;
-
             $setted_num = array_merge(
                 $sudoku->getRow($row_n, true),
                 $sudoku->getColumn($columns[$col_n], true),
-                $sudoku->getSection(
-                    $sec_row_start,
-                    $columns[$sec_col_start],
-                    $sec_row_end,
-                    $columns[$sec_col_end],
-                    true
-                )
+                $sudoku->getSectionFrom($row_n, $columns[$col_n], true)
             );
 
             $remain = array_diff($possible_num, $setted_num);
@@ -136,10 +120,10 @@ class SudokuFactory extends Factory
             $row_n = floor($i / $section_length) * $section_length;
             $col_n = ($i % $section_length) * $section_length;
 
-                foreach ($possibles as $k => $field) {
-                    $row = floor($k / $section_length);
-                    $col = $k % $section_length;
-                    $col = $columns[$col_n + $col];
+            foreach ($possibles as $k => $field) {
+                $row = floor($k / $section_length);
+                $col = $k % $section_length;
+                $col = $columns[$col_n + $col];
 
                 $positions[$row_n + $row][$col] = $field;
             }
