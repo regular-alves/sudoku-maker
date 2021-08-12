@@ -140,4 +140,30 @@ class Sudoku extends Model
 
         return true;
     }
+
+    public function getSectionFrom(int $row, string $col, bool $without_null = false): array
+    {
+        $section_length = sqrt(count($this->positions));
+        $columns = array_keys($this->positions[0]);
+
+        if (!in_array($col, $columns)) {
+            return [];
+        }
+
+        $col = array_search($col, $columns);
+
+        $sec_row_start = floor($row / $section_length) * $section_length;
+        $sec_row_end = ($sec_row_start + $section_length) - 1;
+
+        $sec_col_start = floor($col / $section_length) * $section_length;
+        $sec_col_end = ($sec_col_start + $section_length) - 1;
+
+        return $this->getSection(
+            $sec_row_start,
+            $columns[$sec_col_start],
+            $sec_row_end,
+            $columns[$sec_col_end],
+            $without_null
+        );
+    }
 }

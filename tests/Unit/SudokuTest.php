@@ -100,6 +100,28 @@ class SudokuTest extends TestCase
         );
     }
 
+    public function test_getSectionFrom()
+    {
+        $first_set = $this->sudoku->getSectionFrom(0, 'a');
+        $second_set = $this->sudoku->getSectionFrom(2, 'c');
+        $third_set = $this->sudoku->getSectionFrom(10, 'k');
+
+        sort($first_set);
+        sort($second_set);
+
+        $this->assertIsArray($first_set);
+        $this->assertEquals(range(1, 9), $first_set);
+        $this->assertCount(9, $first_set);
+
+        $this->assertIsArray($second_set);
+        $this->assertEquals(range(1, 9), $second_set);
+        $this->assertCount(9, $second_set);
+
+        $this->assertIsArray($third_set);
+        $this->assertEquals([], $third_set);
+        $this->assertCount(0, $third_set);
+    }
+
     public function testSudokuValider()
     {
         $this->assertEquals(true, $this->sudoku->isValid());
