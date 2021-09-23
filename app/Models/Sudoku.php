@@ -166,4 +166,32 @@ class Sudoku extends Model
             $without_null
         );
     }
+
+    public function toTable()
+    {
+        ob_start();
+
+        echo '<table style="border:1px solid #000; text-align: center;">';
+
+        foreach($this->positions as $row) {
+            echo '<tr>';
+
+            foreach($row as $col) {
+                echo '<td>';
+                // echo '<input type="text" style="width: 25px;" value="' . $col . '"/>';
+                echo $col;
+                echo '</td>';
+            }
+
+            echo '</tr>';
+        }
+
+        echo '</table>';
+
+        $content = ob_get_contents();
+
+        ob_end_clean();
+
+        return $content;
+    }
 }
