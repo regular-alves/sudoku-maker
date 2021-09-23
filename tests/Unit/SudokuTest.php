@@ -122,6 +122,22 @@ class SudokuTest extends TestCase
         $this->assertCount(0, $third_set);
     }
 
+    public function test_getNotAllowedFromAdjacent()
+    {
+        $first_set = $this->sudoku->getNotAllowedFromAdjacent(0, 'a');
+        $second_set = $this->sudoku->getNotAllowedFromAdjacent(8, 'i');
+        $third_set = $this->sudoku->getNotAllowedFromAdjacent(4, 'e');
+
+        $this->assertIsArray($first_set);
+        $this->assertEquals([1,3,5], $first_set);
+
+        $this->assertIsArray($second_set);
+        $this->assertEquals([1,3,5], $second_set);
+
+        $this->assertIsArray($third_set);
+        $this->assertEquals([2,4,5,6,7,8,9], $third_set);
+    }
+
     public function testSudokuValider()
     {
         $this->assertEquals(true, $this->sudoku->isValid());

@@ -167,6 +167,44 @@ class Sudoku extends Model
         );
     }
 
+    public function getNotAllowedFromAdjacent(int $row, string $col): array
+    {
+        $values = [];
+        $adjacent = [];
+
+        $columns = array_flip(array_keys($this->positions[0]));
+        $col_n = $columns[$col];
+        $columns = array_flip($columns);
+
+        $col_n--;
+
+        if(isset($columns[$col_n]) && isset($this->positions[$row][$columns[$col_n]])) {
+            $adjacent[] = $this->positions[$row][$columns[$col_n]];
+        }
+
+        $col_n++;
+        $col_n++;
+
+        if(isset($columns[$col_n]) && isset($this->positions[$row][$columns[$col_n]])) {
+            $adjacent[] = $this->positions[$row][$columns[$col_n]];
+        }
+
+        if(isset($this->positions[$row + 1]) && isset($this->positions[$row + 1][$col])) {
+            $adjacent[] = $this->positions[$row + 1][$col];
+        }
+
+        if(isset($this->positions[$row - 1]) && isset($this->positions[$row - 1][$col])) {
+            $adjacent[] = $this->positions[$row - 1][$col];
+        }
+
+        foreach($adjacent as $val) {
+            $values[] = $val + 1;
+            $values[] = $val - 1;
+        }
+
+        return array_unique($values);
+    }
+
     public function toTable()
     {
         ob_start();
