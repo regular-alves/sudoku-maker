@@ -18,7 +18,7 @@ class SudokuFactoryTest extends TestCase
         $this->sudoku = Sudoku::factory()->make();
     }
 
-    public function test_MustReturnASudokuInstance()
+    public function test_MustReturnAValidSudokuInstance()
     {
         $this->assertInstanceOf(Sudoku::class, $this->sudoku);
         $this->assertEquals(true, $this->sudoku->isValid());
