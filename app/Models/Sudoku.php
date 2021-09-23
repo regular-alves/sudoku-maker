@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Validation\Rules\Unique;
 
 class Sudoku extends Model
 {
@@ -202,7 +203,18 @@ class Sudoku extends Model
             $values[] = $val - 1;
         }
 
-        return array_unique($values);
+        sort($values);
+        $unique = [];
+
+        foreach($values as $value) {
+            if(!in_array($value, $unique)) {
+                $unique[] = $value;
+            }
+        }
+
+        // array_unique is leaving duplicate values
+        // return array_unique($values);
+        return $unique;
     }
 
     public function toTable()
